@@ -51,9 +51,30 @@ function extractSchedule(data) {
 	return extractedData;
 }
 
+function separateRoomInfo(data) {
+	return data.map(item => {
+		const roomInfo = item.room.split(' (');
+		const roomNumber = roomInfo[0];
+		const roomName = roomInfo[1] ? roomInfo[1].replace(')', '') : null;
+		return {
+			course: item.course,
+			section: item.section,
+			time: item.time,
+			room: {
+				number: roomNumber,
+				name: roomName,
+			},
+		};
+	});
+}
 
 export default async function parseXlsx(filePath) {
 	const jsonData = await getText(filePath);
-	const schedule = extractSchedule(JSON.parse(jsonData));
+	let schedule = extractSchedule(JSON.parse(jsonData));
+
+	if (schedule.length > 0) {
+		schedule = separateRoomInfo(schedule);
+	}
+
 	return schedule;
 }
