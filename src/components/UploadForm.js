@@ -10,7 +10,6 @@ export default function UploadForm({ onUploadSuccess }) {
 
 		setLoading(true);
 
-		// Read file as base64
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = async () => {
