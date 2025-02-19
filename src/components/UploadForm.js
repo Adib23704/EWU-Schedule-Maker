@@ -44,8 +44,8 @@ export default function UploadForm({ onUploadSuccess }) {
 	};
 
 	return (
-		<div className="p-4 bg-white shadow-lg rounded-lg border border-gray-100">
-			<div className="flex flex-col space-y-4">
+		<div className="p-4 bg-white">
+			<div className="flex flex-col space-y-4 items-center">
 				<label className="block text-lg font-medium text-gray-700">
 					Upload Your Advising Slip in Excel Format
 				</label>
