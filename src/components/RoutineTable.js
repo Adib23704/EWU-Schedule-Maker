@@ -29,7 +29,10 @@ export default function RoutineTable({ schedule }) {
 
   const handleSaveAsImage = () => {
     if (tableRef.current) {
-      html2canvas(tableRef.current).then((canvas) => {
+      html2canvas(tableRef.current, {
+        scale: 2,
+        useCORS: true,
+      }).then((canvas) => {
         const link = document.createElement("a");
         link.href = canvas.toDataURL("image/png");
         link.download = "routine.png";
@@ -40,11 +43,16 @@ export default function RoutineTable({ schedule }) {
 
   const handleSaveAsPDF = () => {
     if (tableRef.current) {
-      html2canvas(tableRef.current).then((canvas) => {
+      html2canvas(tableRef.current, {
+        scale: 2,
+        useCORS: true,
+      }).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF("landscape");
+  
         const imgWidth = 280;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  
         pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
         pdf.save("routine.pdf");
       });
