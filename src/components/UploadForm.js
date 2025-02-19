@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function UploadForm({ onUploadSuccess }) {
 	const [loading, setLoading] = useState(false);
+	const [fileName, setFileName] = useState("");
 
 	const handleFileUpload = async (event) => {
 		event.preventDefault();
@@ -14,6 +15,7 @@ export default function UploadForm({ onUploadSuccess }) {
 		}
 
 		setLoading(true);
+		setFileName(file.name);
 
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
@@ -30,10 +32,7 @@ export default function UploadForm({ onUploadSuccess }) {
 			if (response.ok) {
 				onUploadSuccess(data.schedule);
 			} else {
-				alert(data
-					? `Failed to upload file: ${data.message || "An unknown error occurred."}`
-					: "Failed to upload file: An unknown error occurred."
-				);
+				alert("Upload failed!");
 			}
 			setLoading(false);
 		};
@@ -45,9 +44,36 @@ export default function UploadForm({ onUploadSuccess }) {
 	};
 
 	return (
-		<div className="p-4">
-			<input type="file" onChange={handleFileUpload} className="border p-2 rounded-lg" accept=".xlsx" />
-			{loading && <p className="text-gray-600 mt-2">Uploading...</p>}
+		<div className="p-4 bg-white shadow-lg rounded-lg border border-gray-100">
+			<div className="flex flex-col space-y-4">
+				<label className="block text-lg font-medium text-gray-700">
+					Upload Your Schedule File
+				</label>
+				<div className="flex items-center space-x-4">
+					<input
+						type="file"
+						onChange={handleFileUpload}
+						className="hidden"
+						id="fileInput"
+						accept=".xlsx"
+					/>
+					<label
+						htmlFor="fileInput"
+						className="bg-blue-500 text-white px-6 py-2 rounded-lg cursor-pointer hover:bg-blue-600 transition-colors"
+					>
+						Choose File
+					</label>
+					{fileName && (
+						<span className="text-gray-600 truncate">{fileName}</span>
+					)}
+				</div>
+				{loading && (
+					<div className="flex items-center space-x-2">
+						<div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+						<span className="text-gray-600">Uploading...</span>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 }
