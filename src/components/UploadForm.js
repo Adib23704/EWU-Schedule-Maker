@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UploadForm({ onUploadSuccess }) {
 	const [loading, setLoading] = useState(false);
@@ -7,6 +9,11 @@ export default function UploadForm({ onUploadSuccess }) {
 		event.preventDefault();
 		const file = event.target.files[0];
 		if (!file) return;
+
+		if (file.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+			toast.error("Please upload a valid .xlsx file.");
+			return;
+		}
 
 		setLoading(true);
 
@@ -24,22 +31,23 @@ export default function UploadForm({ onUploadSuccess }) {
 			const data = await response.json();
 			if (response.ok) {
 				onUploadSuccess(data.schedule);
+				toast.success("Upload successful!");
 			} else {
-				alert("Upload failed!");
+				toast.error("Upload failed!");
 			}
 			setLoading(false);
 		};
 
 		reader.onerror = () => {
-			alert("File reading failed!");
+			toast.error("File reading failed!");
 			setLoading(false);
 		};
 	};
 
 	return (
 		<div className="p-4">
-			<input type="file" onChange={handleFileUpload} className="border p-2" />
-			{loading && <p>Uploading...</p>}
+			<input type="file" onChange={handleFileUpload} className="border p-2 rounded-lg" accept=".xlsx" />
+			{loading && <p className="text-gray-600 mt-2">Uploading...</p>}
 		</div>
 	);
 }

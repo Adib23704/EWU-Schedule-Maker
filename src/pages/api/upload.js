@@ -1,7 +1,6 @@
 import parseXlsx from "@/utils/parser";
 import fs from "fs-extra";
 import path from "path";
-import xlsx from "xlsx";
 
 export default async function handler(req, res) {
 	if (req.method !== "POST") {
@@ -16,6 +15,10 @@ export default async function handler(req, res) {
 		}
 
 		const buffer = Buffer.from(fileData, "base64");
+
+		if (buffer.length > 5 * 1024 * 1024) {
+			return res.status(400).json({ error: "File size exceeds 5MB" });
+		}
 
 		const uploadDir = path.join(process.cwd(), "public/uploads");
 		await fs.ensureDir(uploadDir);
