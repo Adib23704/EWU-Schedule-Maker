@@ -1,8 +1,6 @@
-import { getText } from 'any-text';
+import * as XLSX from "xlsx";
 
-function extractSchedule(data) {
-	const rows = data["AdvisingSlip"];
-
+function extractSchedule(rows) {
 	let courseIndex = null;
 	let sectionIndex = null;
 	let timeIndex = null;
@@ -81,10 +79,14 @@ function getDayOrder(day) {
 	return dayMap[day] || 0;
 }
 
+export default async function parseXlsx(buffer) {
+	const workbook = XLSX.read(buffer, { type: "buffer" });
+	const sheetName = workbook.SheetNames[0];
+	const sheet = workbook.Sheets[sheetName];
 
-export default async function parseXlsx(filePath) {
-	const jsonData = await getText(filePath);
-	let schedule = extractSchedule(JSON.parse(jsonData));
+	const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+	let schedule = extractSchedule(jsonData);
 
 	if (schedule.length > 0) {
 		schedule = separateRoomInfo(schedule);
