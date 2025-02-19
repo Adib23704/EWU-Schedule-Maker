@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function UploadForm({ onUploadSuccess }) {
 	const [loading, setLoading] = useState(false);
@@ -11,7 +9,7 @@ export default function UploadForm({ onUploadSuccess }) {
 		if (!file) return;
 
 		if (file.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-			toast.error("Please upload a valid .xlsx file.");
+			alert("Invalid file type! Please upload an Excel file.");
 			return;
 		}
 
@@ -31,15 +29,17 @@ export default function UploadForm({ onUploadSuccess }) {
 			const data = await response.json();
 			if (response.ok) {
 				onUploadSuccess(data.schedule);
-				toast.success("Upload successful!");
 			} else {
-				toast.error("Upload failed!");
+				alert(data
+					? `Failed to upload file: ${data.message || "An unknown error occurred."}`
+					: "Failed to upload file: An unknown error occurred."
+				);
 			}
 			setLoading(false);
 		};
 
 		reader.onerror = () => {
-			toast.error("File reading failed!");
+			alert("Failed to read the file!");
 			setLoading(false);
 		};
 	};
