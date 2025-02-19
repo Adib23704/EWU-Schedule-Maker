@@ -1,40 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# EWU Schedule Maker
 
-## Getting Started
+Easily generate and visualize your EWU class schedule with our simple and modern tool.
 
-First, run the development server:
+## Features
 
+- Upload an Excel file of your EWU Advising Slip.
+- Automatically generate a visually structured routine table.
+- Responsive and modern UI.
+- Download your schedule as an image or PDF.
+
+## Tech Stack
+
+- **Frontend:** Next.js, React, Tailwind CSS
+- **Backend:** Next.js API Routes
+
+## Installation & Setup
+
+### Prerequisites
+
+- **Node.js** (v18+ recommended)
+- **Yarn** or **npm**
+
+### Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Adib23704/EWU-Schedule-Maker.git
+cd EWU-Schedule-Maker
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Install Dependencies
+```bash
+npm install  # or yarn install
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Run the Development Server
+```bash
+npm run dev  # or yarn dev
+```
+The app will be available at `http://localhost:3000`.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Build for Production
+```bash
+npm run build # or yarn build
+npm start # or yarn start
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Project Structure
+```
+/
+├── public/               # Static assets (images, icons, etc.)
+│   ├── favicon/
+│   │   ├── browserconfig.xml
+│   │   ├── manifest.json
+│   │   └── ...
+│   ├── favicon.ico
+│   └── logo.png
+├── src/
+│   ├── components/       # UI components (RoutineTable, UploadForm, etc.)
+│   │   ├── RoutineTable.js
+│   │   └── UploadForm.js
+│   ├── pages/            # Next.js pages (_app.js, index.js, etc.)
+│   │   ├── _app.js
+│   │   ├── 404.js
+│   │   ├── api/
+│   │   │   └── upload.js
+│   │   └── index.js
+│   ├── styles/           # Global styles (Tailwind CSS, other CSS files)
+│   │   └── globals.css
+│   └── utils/            # Utility functions (Excel parser, etc.)
+│       └── parser.js
+└── uploads/              # Uploaded files
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Usage
+1. Upload your Advising Slip file in `.xlsx` format.
+2. View the generated routine.
+3. Download the schedule as an image or PDF.
 
-## Learn More
+## Deployment
+The project is optimized for **Vercel**.
 
-To learn more about Next.js, take a look at the following resources:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Adib23704/EWU-Schedule-Maker)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+Follow the prompts to set up and deploy your project.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contributing
+Contributions are welcome! 🚀
 
-## Deploy on Vercel
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m "Add new feature"`).
+4. Push to the branch (`git push origin feature-name`).
+5. Open a Pull Request.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## License
+MIT License © 2025 Zahin A. Adib
