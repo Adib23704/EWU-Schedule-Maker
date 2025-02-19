@@ -47,7 +47,7 @@ export default function UploadForm({ onUploadSuccess }) {
 		<div className="p-4 bg-white shadow-lg rounded-lg border border-gray-100">
 			<div className="flex flex-col space-y-4">
 				<label className="block text-lg font-medium text-gray-700">
-					Upload Your Schedule File
+					Upload Your Advising Slip
 				</label>
 				<div className="flex items-center space-x-4">
 					<input

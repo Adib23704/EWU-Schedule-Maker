@@ -57,63 +57,57 @@ export default function RoutineTable({ schedule }) {
   };
 
   return (
-    <div className="overflow-x-auto p-6 bg-white shadow-lg rounded-lg border border-gray-100">
-      {/* Card Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Class Routine</h2>
-      </div>
-
-      {/* Table */}
-      <table ref={tableRef} className="w-full border-collapse">
-        <thead>
-          <tr className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-lg">
-            <th className="px-6 py-4 text-left rounded-tl-lg">Day</th>
-            {courses.map((course) => (
-              <th key={course} className="px-6 py-4 text-center">{course}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {days.map((day) => (
-            <tr key={day} className="hover:bg-gray-50 transition-colors">
-              <td className="px-6 py-4 font-medium bg-gray-100 text-left">{day}</td>
+    <div className="overflow-x-auto p-4 bg-white shadow-lg rounded-lg border border-gray-100">
+      <div className="overflow-x-auto">
+        <table ref={tableRef} className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm md:text-lg">
+              <th className="px-4 py-2 md:px-6 md:py-4 text-left rounded-tl-lg">Day</th>
               {courses.map((course) => (
-                <td key={course} className="px-6 py-4 whitespace-pre-line text-sm border-t border-gray-200">
-                  {routine[day][course] ? (
-                    <div>
-                      <span className="font-semibold text-blue-700">{routine[day][course].time}</span>
-                      <br />
-                      <span className="text-gray-600 text-xs">{routine[day][course].room.number}</span>
-                    </div>
-                  ) : (
-                    "—"
-                  )}
-                </td>
+                <th key={course} className="px-4 py-2 md:px-6 md:py-4 text-center">{course}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {days.map((day) => (
+              <tr key={day} className="hover:bg-gray-50 transition-colors">
+                <td className="px-4 py-2 md:px-6 md:py-4 font-medium bg-gray-100 text-left">{day}</td>
+                {courses.map((course) => (
+                  <td key={course} className="px-4 py-2 md:px-6 md:py-4 whitespace-pre-line text-xs md:text-sm border-t border-gray-200 text-center">
+                    {routine[day][course] ? (
+                      <div>
+                        <span className="font-bold text-blue-700">{routine[day][course].time}</span>
+                        <br />
+                        <span className="font-semibold text-gray-600">{routine[day][course].room.number}</span>
+                      </div>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      {/* Buttons Section */}
-      <div className="mt-6 flex justify-center space-x-4">
+      <div className="mt-6 flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
         <button
           onClick={handleSaveAsImage}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center"
+          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
         >
-          <CameraIcon className="w-5 h-5 mr-2" />
+          <CameraIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
           <span>Save as Image</span>
         </button>
         <button
           onClick={handleSaveAsPDF}
-          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center"
+          className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
         >
-          <DocumentArrowDownIcon className="w-5 h-5 mr-2" />
+          <DocumentArrowDownIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
           <span>Save as PDF</span>
         </button>
       </div>
 
-      {/* Loading Spinner */}
       {isSaving && (
         <div className="flex justify-center items-center mt-4">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
