@@ -18,6 +18,17 @@ export default function Home() {
 					<RoutineTable schedule={schedule} />
 				</div>
 			)}
+		<footer className="mt-8 text-gray-500 text-sm">
+        Created by{" "}
+        <a
+          href="https://adib23704.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 font-semibold hover:underline"
+        >
+          Zahin A. Adib
+        </a>
+      </footer>
 		</div>
 	);
 }

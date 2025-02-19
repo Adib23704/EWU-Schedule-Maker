@@ -26,32 +26,27 @@ export default function RoutineTable({ schedule }) {
   });
 
   const tableRef = useRef(null);
-  const [isSaving, setIsSaving] = useState(false);
 
   const handleSaveAsImage = () => {
-    setIsSaving(true);
     if (tableRef.current) {
       html2canvas(tableRef.current).then((canvas) => {
         const link = document.createElement("a");
         link.href = canvas.toDataURL("image/png");
         link.download = "routine.png";
         link.click();
-        setIsSaving(false);
       });
     }
   };
 
   const handleSaveAsPDF = () => {
-    setIsSaving(true);
     if (tableRef.current) {
       html2canvas(tableRef.current).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF("landscape");
-        const imgWidth = 280; // Adjust based on your table width
+        const imgWidth = 280;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
         pdf.save("routine.pdf");
-        setIsSaving(false);
       });
     }
   };
@@ -107,12 +102,6 @@ export default function RoutineTable({ schedule }) {
           <span>Save as PDF</span>
         </button>
       </div>
-
-      {isSaving && (
-        <div className="flex justify-center items-center mt-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      )}
     </div>
   );
 }
