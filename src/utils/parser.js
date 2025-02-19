@@ -9,6 +9,7 @@ function findColumnIndices(rows) {
 				timeIndex: rows[i].indexOf("Time-WeekDay"),
 				roomIndex: rows[i].indexOf("Room"),
 				feeIndex: rows[i].indexOf("Tuition"),
+				remarksIndex: rows[i].indexOf("Remarks")
 			};
 		}
 	}
@@ -26,7 +27,7 @@ function extractSchedule(rows) {
 	const indices = findColumnIndices(rows);
 	if (!indices) return [];
 
-	const { courseIndex, sectionIndex, timeIndex, roomIndex, feeIndex } = indices;
+	const { courseIndex, sectionIndex, timeIndex, roomIndex, feeIndex, remarksIndex } = indices;
 	const extractedData = [];
 	let currentCourse = null;
 	let currentSection = null;
@@ -36,9 +37,10 @@ function extractSchedule(rows) {
 
 	for (let i = headerRowIndex + 1; i < rows.length; i++) {
 		const row = rows[i];
-		
+
+		const remarks = row[remarksIndex];
 		const tuitionFee = row[feeIndex];
-		if (tuitionFee !== 0) {
+		if (tuitionFee !== 0 && !remarks) {
 			if (row[courseIndex] && row[timeIndex] && !row[courseIndex].includes("Lab)")) {
 				if (currentCourse && timeSlots.length > 0) {
 					extractedData.push({
@@ -151,7 +153,7 @@ export default async function parseXlsx(buffer) {
 	const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
 	let schedule = extractSchedule(jsonData);
-		
+
 	if (schedule.length > 0) {
 		schedule = separateRoomInfo(schedule);
 		schedule = sortSchedule(schedule);
