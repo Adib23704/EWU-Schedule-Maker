@@ -12,10 +12,6 @@ export default function RoutineTable({ schedule }) {
 		return /FBAN|FBAV|Instagram|Messenger|Twitter|TikTok/i.test(userAgent);
 	};
 
-	const openInBrowser = () => {
-		window.open(window.location.href, "_blank");
-	};
-
 	useEffect(() => {
 		if (isInAppBrowser()) {
 			setShowWarning(true);
@@ -86,13 +82,7 @@ export default function RoutineTable({ schedule }) {
 		<div className="relative">
 			{showWarning && (
 				<div className="fixed top-0 left-0 w-full bg-red-600 text-white text-center p-3 z-50 shadow-md">
-					⚠️ You are using an in-app browser, image and PDF saving may not work.
-					<button
-						onClick={openInBrowser}
-						className="ml-2 bg-gray-900 text-white px-3 py-1 rounded"
-					>
-						Open in Browser
-					</button>
+					⚠️ You&apos;re using an in-app browser, image and PDF saving may not work. Open this page in a regular browser.
 				</div>
 			)}
 
